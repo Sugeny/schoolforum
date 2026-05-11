@@ -1,0 +1,166 @@
+/* 主题变量样式 - 统一管理颜色 */
+
+:root {
+  --color-bg-1: #f2f3f5;
+  --color-bg-2: #ffffff;
+}
+
+[arco-theme='dark'] {
+  --color-bg-1: #17171a;
+  --color-bg-2: #232326;
+}
+
+body {
+  background-color: var(--color-bg-1);
+}
+
+/* 主容器 */
+.main {
+  background-color: var(--color-bg-1);
+}
+
+.post-detail-page {
+  background-color: var(--color-bg-1);
+}
+
+/* 侧边栏卡片 */
+.sidebar-card {
+  background-color: var(--color-bg-2);
+  border-color: var(--color-border-2);
+}
+
+.sidebar-card :deep(.arco-card-header) {
+  border-bottom-color: var(--color-border-2);
+}
+
+/* 帖子列表头部 */
+.post-list-header {
+  background-color: var(--color-bg-2);
+  border-color: var(--color-border-2);
+}
+
+/* 帖子卡片 */
+.post-card {
+  background-color: var(--color-bg-2);
+  border-color: var(--color-border-2);
+}
+
+.post-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.author-name {
+  color: var(--color-text-1);
+}
+
+.post-time {
+  color: var(--color-text-3);
+}
+
+.post-title {
+  color: var(--color-text-1);
+}
+
+.post-title:hover {
+  color: rgb(var(--primary-6));
+}
+
+.post-content {
+  color: var(--color-text-2);
+}
+
+.post-card-footer {
+  border-top-color: var(--color-border-2);
+}
+
+.stat-item {
+  color: var(--color-text-3);
+}
+
+.post-actions :deep(.arco-btn-text) {
+  color: var(--color-text-3);
+}
+
+.post-actions :deep(.arco-btn-text:hover) {
+  color: rgb(var(--primary-6));
+  background-color: var(--color-fill-2);
+}
+
+/* 滚动条 */
+.post-cards-container::-webkit-scrollbar-thumb {
+  background-color: var(--color-fill-3);
+}
+
+/* 用户列表 */
+.user-name {
+  color: var(--color-text-1);
+}
+
+.user-score {
+  color: var(--color-text-3);
+}
+
+/* 热门帖子 */
+.hot-post-item:hover .hot-post-title {
+  color: rgb(var(--primary-6));
+}
+
+.hot-post-rank {
+  background-color: var(--color-fill-2);
+  color: var(--color-text-3);
+}
+
+.hot-post-rank.top {
+  background-color: var(--color-danger-light-1);
+  color: rgb(var(--danger-6));
+}
+
+.hot-post-title {
+  color: var(--color-text-1);
+}
+
+.hot-post-meta {
+  color: var(--color-text-3);
+}
+
+/* 帖子详情页 */
+.post-detail-page .post-card {
+  background-color: var(--color-bg-2);
+  border-color: var(--color-border-2);
+}
+
+.post-detail-page .comment-card {
+  background-color: var(--color-bg-2);
+  border-color: var(--color-border-2);
+}
+
+.post-detail-page .author-card {
+  background-color: var(--color-bg-2);
+  border-color: var(--color-border-2);
+}
+
+.post-detail-page .related-card {
+  background-color: var(--color-bg-2);
+  border-color: var(--color-border-2);
+}
+
+.post-detail-page .related-item:hover {
+  background-color: var(--color-fill-2);
+}
+
+/* 签到中心页面 */
+.checkin-page {
+  background-color: var(--color-bg-1);
+}
+
+.checkin-page .status-card,
+.checkin-page .exchange-card,
+.checkin-page .calendar-card,
+.checkin-page .records-card {
+  background-color: var(--color-bg-2);
+  border-color: var(--color-border-2);
+}
+
+.checkin-page .calendar-day:hover:not(.other-month) {
+  background-color: var(--color-fill-2);
+}
