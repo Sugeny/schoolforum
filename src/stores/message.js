@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { getUnreadMessageCount } from '@/apis/messages'
 import { useRealtimeConnection } from '@/composables/useRealtimeConnection'
 import { createWebSocketConnection } from '@/utils/websocketAdapter'
+import { getWebSocketURL } from '@/config/server'
 
 export const useMessageStore = defineStore('message', () => {
   const unreadCount = ref(0)
@@ -68,8 +69,7 @@ export const useMessageStore = defineStore('message', () => {
         throw new Error('No token available')
       }
 
-      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-      const wsUrl = `${protocol}//${window.location.host}/ws/message?token=${encodeURIComponent(token)}`
+      const wsUrl = getWebSocketURL(`/ws/message?token=${encodeURIComponent(token)}`)
 
       return createWebSocketConnection(wsUrl, {
         onMessage: handleWSMessage,

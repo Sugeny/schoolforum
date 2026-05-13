@@ -2,9 +2,10 @@ import { createAlova } from 'alova'
 import adapterFetch from 'alova/fetch'
 import VueHook from 'alova/vue'
 import log from '@/utils/logger'
+import { getAPIBaseURL } from '@/config/server'
 
 const alovaInstance = createAlova({
-  baseURL: '/api',
+  baseURL: getAPIBaseURL(),
   statesHook: VueHook,
   requestAdapter: adapterFetch(),
   timeout: 10000,
@@ -31,7 +32,7 @@ const alovaInstance = createAlova({
             localStorage.removeItem('userInfo')
             sessionStorage.removeItem('token')
             sessionStorage.removeItem('userInfo')
-            window.location.href = '/login'
+            window.location.href = import.meta.env.BASE_URL + 'auth?mode=login'
             break
         }
       }

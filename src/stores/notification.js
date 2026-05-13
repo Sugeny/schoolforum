@@ -12,6 +12,7 @@ import {
 } from '@/apis/notifications'
 import { useRealtimeConnection } from '@/composables/useRealtimeConnection'
 import { createSSEConnection } from '@/utils/sseAdapter'
+import { getSSEURL } from '@/config/server'
 
 const getNotificationIcon = (type) => {
   switch (type) {
@@ -94,8 +95,7 @@ export const useNotificationStore = defineStore('notification', () => {
   } = useRealtimeConnection({
     createConnection: () => {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token')
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || ''
-      const url = `${baseUrl}/api/notifications/subscribe`
+      const url = getSSEURL('/api/notifications/subscribe')
 
       const headers = {}
       if (token) {
