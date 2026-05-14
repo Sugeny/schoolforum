@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { getUnreadMessageCount } from '@/apis/messages'
 import { useRealtimeConnection } from '@/composables/useRealtimeConnection'
 import { createWebSocketConnection } from '@/utils/websocketAdapter'
-import { getWebSocketURL } from '@/config/server'
+import { getWebSocketURL, getAvatarURL } from '@/config/server'
 
 export const useMessageStore = defineStore('message', () => {
   const unreadCount = ref(0)
@@ -18,7 +18,7 @@ export const useMessageStore = defineStore('message', () => {
     if ('Notification' in window && Notification.permission === 'granted') {
       new Notification(`${senderName} 发来私信`, {
         body: content,
-        icon: message.sender?.avatarUrl || '/favicon.ico',
+        icon: getAvatarURL(message.sender?.avatarUrl) || '/favicon.ico',
       })
     }
   }

@@ -26,7 +26,7 @@
                 @click="selectConversation(conv)"
               >
                 <a-avatar :size="48" class="conv-avatar">
-                  <img v-if="conv.otherAvatarUrl" :src="conv.otherAvatarUrl" alt="avatar" />
+                  <img v-if="conv.otherAvatarUrl" :src="getAvatarURL(conv.otherAvatarUrl)" alt="avatar" />
                   <icon-user v-else />
                 </a-avatar>
                 <div class="conv-info">
@@ -66,7 +66,7 @@
               <a-avatar :size="36" class="chat-avatar">
                 <img
                   v-if="currentConversation.otherAvatarUrl"
-                  :src="currentConversation.otherAvatarUrl"
+                  :src="getAvatarURL(currentConversation.otherAvatarUrl)"
                   alt="avatar"
                 />
                 <icon-user v-else />
@@ -157,6 +157,7 @@ import {
 } from '@/apis/messages'
 import { useUserStore } from '@/stores/user'
 import { useMessageStore } from '@/stores/message'
+import { getAvatarURL } from '@/config/server'
 
 definePage({
   meta: {
@@ -217,7 +218,7 @@ const getAvatarUrl = (msg) => {
   if (msg.senderId === currentUserId.value) {
     return userStore.avatar || null
   }
-  return msg.sender?.avatarUrl || null
+  return getAvatarURL(msg.sender?.avatarUrl) || null
 }
 
 const route = useRoute()

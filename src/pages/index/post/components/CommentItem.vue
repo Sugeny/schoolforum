@@ -2,7 +2,7 @@
   <a-comment class="comment-item">
     <template #avatar>
       <a-avatar :size="36">
-        <img v-if="comment.authorAvatar" :src="comment.authorAvatar" />
+        <img v-if="comment.authorAvatar" :src="getAvatarURL(comment.authorAvatar)" />
         <IconUser v-else />
       </a-avatar>
     </template>
@@ -67,6 +67,7 @@
 <script setup>
 import { formatTimeAgo } from '@/utils/time'
 import { IconUser } from '@arco-design/web-vue/es/icon'
+import { getAvatarURL } from '@/config/server'
 import CommentActions from './CommentActions.vue'
 import ReplyItem from './ReplyItem.vue'
 import ReplyEditor from './ReplyEditor.vue'

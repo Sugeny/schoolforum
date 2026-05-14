@@ -354,7 +354,7 @@ const handleLogin = () => router.push('/auth?mode=login')
 const handleRegister = () => router.push('/auth?mode=register')
 const handlePersonalCenter = () => router.push('/profile?tab=profile')
 const handleCheckinCenter = () => router.push('/checkin')
-const handleAdminDashboard = () => (window.location.href = 'http://localhost:8081')
+const handleAdminDashboard = () => (window.location.href = import.meta.env.VITE_ADMIN_URL || 'http://localhost:8081')
 const handleSearch = () => router.push('/search')
 
 watch(

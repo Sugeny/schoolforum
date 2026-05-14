@@ -115,7 +115,7 @@
               >
                 <div class="user-card-inner">
                   <a-avatar :size="52" class="user-avatar-img">
-                    <img v-if="user.avatarUrl" :src="user.avatarUrl" />
+                    <img v-if="user.avatarUrl" :src="getAvatarURL(user.avatarUrl)" />
                     <icon-user v-else />
                   </a-avatar>
                   <div class="user-meta">
@@ -171,6 +171,7 @@
 import { IconSearch, IconUser, IconApps, IconFile, IconRight } from '@arco-design/web-vue/es/icon'
 import { searchAll } from '@/apis/search'
 import PostCard from '@/components/PostCard.vue'
+import { getAvatarURL } from '@/config/server'
 
 definePage({
   meta: {

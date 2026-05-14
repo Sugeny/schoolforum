@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { getUserInfo } from '@/apis/users'
+import { getAvatarURL } from '@/config/server'
 
 export const useUserStore = defineStore('user', () => {
   const userInfo = ref(null)
@@ -9,7 +10,7 @@ export const useUserStore = defineStore('user', () => {
   const isLoggedIn = computed(() => !!token.value && !!userInfo.value)
   const userId = computed(() => userInfo.value?.id || null)
   const username = computed(() => userInfo.value?.username || '')
-  const avatar = computed(() => userInfo.value?.avatarUrl || userInfo.value?.avatar || '')
+  const avatar = computed(() => getAvatarURL(userInfo.value?.avatarUrl || userInfo.value?.avatar || ''))
   const isAdmin = computed(() => {
     const role = userInfo.value?.role
     return role === 'SUPER_ADMIN' || role === 'ADMIN'

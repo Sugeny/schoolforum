@@ -55,6 +55,7 @@ import {
   checkFollowStatus,
 } from '@/apis/follows'
 import { useUserStore } from '@/stores/user'
+import { getAvatarURL } from '@/config/server'
 
 const router = useRouter()
 const props = defineProps({
@@ -82,7 +83,7 @@ const isCurrentUser = computed(() => {
 })
 
 const authorAvatar = computed(() => {
-  return authorInfo.value?.avatarUrl || authorInfo.value?.avatar || ''
+  return getAvatarURL(authorInfo.value?.avatarUrl || authorInfo.value?.avatar || '')
 })
 
 const fetchAuthorInfo = async () => {
