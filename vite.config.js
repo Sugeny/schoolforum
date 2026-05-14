@@ -10,7 +10,7 @@ import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import { vitePluginForArco } from '@arco-plugins/vite-vue'
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd())
+  const env = loadEnv(mode, process.cwd(), 'VITE_')
   const serverTarget = env.VITE_SERVER_URL || 'http://localhost:8085'
 
   return {
