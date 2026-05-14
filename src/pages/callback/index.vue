@@ -83,7 +83,7 @@ const token = useLocalStorage('token', '')
 const loading = ref(true)
 const errorMessage = ref('')
 const needConfirmUsername = ref(false)
-const tempToken = ref('')
+const tempKey = ref('')
 
 const usernameForm = reactive({
   username: '',
@@ -108,10 +108,10 @@ const handleCallback = async () => {
     console.log('GitHub 回调返回:', res)
 
     if (res.code === 200) {
-      if (res.data.needConfirmUsername) {
+      if (res.data.status === 'conflict') {
         needConfirmUsername.value = true
-        tempToken.value = res.data.tempToken
-        usernameForm.username = res.data.suggestedUsername || res.data.githubUsername
+        tempKey.value = res.data.tempKey
+        usernameForm.username = res.data.suggestedUsername || ''
         loading.value = false
       } else {
         const isLogin = !userStore.isLoggedIn
@@ -151,7 +151,7 @@ const handleConfirmUsername = async () => {
   confirmLoading.value = true
   try {
     const res = await confirmUsername({
-      tempToken: tempToken.value,
+      tempKey: tempKey.value,
       username: usernameForm.username,
     })
     console.log('确认用户名返回:', res)
