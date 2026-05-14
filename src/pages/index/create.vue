@@ -232,6 +232,7 @@ import {
   IconFile,
 } from '@arco-design/web-vue/es/icon'
 import { createPost, uploadPostImage } from '@/apis/posts'
+import { getImageURL } from '@/config/server'
 import { getCategoryList } from '@/apis/categories'
 import { getTagsByCategory } from '@/apis/tags'
 import { useUserStore } from '@/stores/user'
@@ -459,7 +460,7 @@ const loadDraft = (draft) => {
       postForm.tagIds = draft.tagIds || []
       postForm.coverImage = draft.coverImage || ''
       if (draft.coverImage) {
-        coverPreview.value = draft.coverImage
+        coverPreview.value = getImageURL(draft.coverImage)
       }
       if (editorRef.value && draft.content) {
         editorRef.value.setContent(draft.content)

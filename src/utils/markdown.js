@@ -11,7 +11,17 @@ const processImagePaths = (content) => {
 
   const baseURL = getServerURL()
 
-  return content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
+  // 处理 HTML <img> 标签
+  content = content.replace(/<img\s+[^>]*src\s*=\s*["']([^"']+)["'][^>]*>/gi, (match, url) => {
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('blob:')) {
+      return match
+    }
+    const fullURL = url.startsWith('/') ? `${baseURL}${url}` : `${baseURL}/${url}`
+    return match.replace(url, fullURL)
+  })
+
+  // 处理 Markdown ![](url) 格式
+  content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
       return match
     }
@@ -19,6 +29,8 @@ const processImagePaths = (content) => {
     const fullURL = url.startsWith('/') ? `${baseURL}${url}` : `${baseURL}/${url}`
     return `![${alt}](${fullURL})`
   })
+
+  return content
 }
 
 export const renderMarkdown = (content) => {
@@ -80,22 +92,36 @@ export const extractImages = (content, maxImages = 3) => {
 
   const baseURL = getServerURL()
   const images = []
-  const regex = /!\[([^\]]*)\]\(([^)]+)\)/g
-  let match
+  const seen = new Set()
 
-  while ((match = regex.exec(content)) !== null) {
-    let url = match[2]
+  const resolveURL = (url) => {
+    if (!url || url.startsWith('data:') || url.startsWith('blob:')) return null
+    if (url.startsWith('http://') || url.startsWith('https://')) return url
+    return url.startsWith('/') ? `${baseURL}${url}` : `${baseURL}/${url}`
+  }
 
-    if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('data:')) {
-      url = url.startsWith('/') ? `${baseURL}${url}` : `${baseURL}/${url}`
+  // HTML <img> 标签
+  const htmlRegex = /<img\s+[^>]*src\s*=\s*["']([^"']+)["'][^>]*>/gi
+  let htmlMatch
+  while ((htmlMatch = htmlRegex.exec(content)) !== null) {
+    const resolved = resolveURL(htmlMatch[1])
+    if (resolved && !seen.has(resolved)) {
+      seen.add(resolved)
+      images.push({ alt: '', url: resolved })
+      if (images.length >= maxImages) return images
     }
+  }
 
-    images.push({
-      alt: match[1] || '',
-      url: url,
-    })
-
-    if (images.length >= maxImages) break
+  // Markdown ![](url) 格式
+  const mdRegex = /!\[([^\]]*)\]\(([^)]+)\)/g
+  let mdMatch
+  while ((mdMatch = mdRegex.exec(content)) !== null) {
+    const resolved = resolveURL(mdMatch[2])
+    if (resolved && !seen.has(resolved)) {
+      seen.add(resolved)
+      images.push({ alt: mdMatch[1] || '', url: resolved })
+      if (images.length >= maxImages) return images
+    }
   }
 
   return images
