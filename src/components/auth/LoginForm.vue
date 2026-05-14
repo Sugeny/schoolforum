@@ -54,6 +54,7 @@ import { login } from '@/apis/users.js'
 import { Message } from '@arco-design/web-vue'
 import { useUserStore } from '@/stores/user'
 import { useNotificationStore } from '@/stores/notification'
+import { getAPIBaseURL } from '@/config/server'
 
 const emit = defineEmits(['go-register', 'go-forgot', 'go-home', 'login-success'])
 
@@ -130,7 +131,8 @@ const handleSubmit = async ({ errors }) => {
 }
 
 const handleGithubLogin = () => {
-  window.location.href = '/api/oauth/render/github'
+  const baseURL = getAPIBaseURL()
+  window.location.href = `${baseURL}/oauth/render/github`
 }
 </script>
 
