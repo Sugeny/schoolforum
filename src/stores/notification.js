@@ -95,7 +95,7 @@ export const useNotificationStore = defineStore('notification', () => {
   } = useRealtimeConnection({
     createConnection: () => {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token')
-      const url = getSSEURL('/api/notifications/subscribe')
+      const url = getSSEURL('/notifications/subscribe')
 
       const headers = {}
       if (token) {

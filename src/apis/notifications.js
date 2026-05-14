@@ -37,7 +37,7 @@ export function deleteNotification(id) {
 export function subscribeNotifications(onMessage, onError) {
   const token = localStorage.getItem('token') || sessionStorage.getItem('token')
   const baseUrl = import.meta.env.VITE_API_BASE_URL || ''
-  const url = `${baseUrl}/api/notifications/subscribe`
+  const url = `${baseUrl}/notifications/subscribe`
 
   const controller = new AbortController()
   const { signal } = controller

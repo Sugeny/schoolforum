@@ -19,7 +19,7 @@ export const getAPIBaseURL = () => {
   if (isDev) {
     return '/api'
   }
-  return `${serverConfig.baseURL}/api`
+  return serverConfig.baseURL
 }
 
 export const getWebSocketURL = (path) => {
